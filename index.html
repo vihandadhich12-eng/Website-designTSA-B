@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        <title>Homepage</title>
+        <title>Homepdage</title>
+        html, body { height: 100%; margin: 0; }
+        body {
+            display: flex;
+            font-size: 20px;
+            align-items: center;
+            justify-content: center;
+            background-image: url('Website Design- Home Page (2).png');
+            background-size: 100% auto;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(0, 31, 63, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(-100%);
+            transition: transform 220ms ease;
+        }
+        .top-trigger {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            z-index: 9999;
+        }
+        .top-trigger:hover ~ .topbar,
+        .topbar:hover {
+            transform: translateY(0);
+        }
+        .topbar a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 20px;
+        }
+        .topbar.show {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-trigger" aria-hidden="true"></div>
+    <nav class="topbar">
+        <a href="Shaping Events Titles.html">Events</a>
+        <a href="History.html">History</a>
+        <a href="The Essence of DASD.html">Essence</a>
+    </nav>
+    <script>
+        const topbar = document.querySelector('.topbar');
+        let hideTimeout;
+        
+        // Touch support
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches[0].clientY < 80) {
+                topbar.classList.add('show');
+                clearTimeout(hideTimeout);
+                hideTimeout = setTimeout(() => {
+                    topbar.classList.remove('show');
+                }, 3000);
+            }
+        });
+        
+        // Mouse move support
+        docment.addEventListener('mousemove', function(e) {
+            if (e.clientY < 8) {
+                topbar.classList.add('show');
+                clearTimeout(hideTimeout);
+            } else if (e.clientY > 80 && !topbar.matches(':hover')) {
+                clearTimeout(hideTimeout);
+                hideTimeout = setTimeout(() => {
+                    topbar.classList.remove('show');
+                }, 500);
+            }
+        });
+        
+        // Keep visible when hovering over topbar
+        topbar.addEventListener('mouseenter', function() {
+            topbar.classList.add('show');
+            clearTimeout(hideTimeout);
+        });
+    </script>
+</body>
+</html>
